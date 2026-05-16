@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarun Mart — Crazy Deals Every Day!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #0a1f5c;
+    --blue-mid: #1a3aad;
+    --blue-bright: #2563eb;
+    --blue-light: #60a5fa;
+    --blue-pale: #dbeafe;
+    --white: #ffffff;
+    --white-off: #f0f6ff;
+    --accent: #facc15;
+    --red: #ef4444;
+    --green: #22c55e;
+    --shadow: 0 8px 32px rgba(10,31,92,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--white-off);
+    color: var(--blue-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, var(--blue-bright) 100%);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 24px rgba(10,31,92,0.35);
+  }
+  .header-inner {
+    max-width: 1200px; margin: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; color: var(--white);
+    letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+  }
+  .logo span { color: var(--accent); }
+  .logo-icon { font-size: 2rem; }
+  nav { display: flex; gap: 1.5rem; align-items: center; }
+  nav a {
+    color: var(--blue-pale); font-weight: 700; text-decoration: none;
+    font-size: 0.95rem; letter-spacing: 0.5px; transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+  .deals-badge {
+    background: var(--accent); color: var(--blue-dark);
+    font-weight: 900; padding: 6px 16px; border-radius: 999px;
+    font-size: 0.9rem; animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(120deg, var(--blue-dark) 0%, var(--blue-mid) 55%, var(--blue-bright) 100%);
+    color: var(--white); text-align: center;
+    padding: 60px 2rem 80px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 40%, rgba(96,165,250,0.25) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(250,204,21,0.12) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; margin: auto; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1;
+    letter-spacing: 3px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 1.2rem; margin: 1rem 0 2rem; opacity: 0.9; font-weight: 600; }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--blue-dark);
+    font-weight: 900; padding: 14px 32px; border-radius: 999px;
+    border: none; cursor: pointer; font-size: 1rem; font-family: 'Nunito', sans-serif;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(250,204,21,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(250,204,21,0.5); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    font-weight: 800; padding: 14px 32px; border-radius: 999px;
+    border: 2.5px solid rgba(255,255,255,0.5); cursor: pointer; font-size: 1rem;
+    font-family: 'Nunito', sans-serif; transition: all 0.15s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: white; }
+
+  /* ── FLOATING STATS ── */
+  .stats-bar {
+    background: var(--white); box-shadow: var(--shadow);
+    margin: -30px auto 0; max-width: 900px;
+    border-radius: 20px; padding: 24px 40px;
+    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 16px;
+    position: relative; z-index: 10;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem;
+    color: var(--blue-bright); display: block;
+  }
+  .stat-label { font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ── SECTION TITLES ── */
+  .section { padding: 60px 2rem; max-width: 1200px; margin: auto; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem; color: var(--blue-dark);
+    letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .section-title span { color: var(--blue-bright); }
+  .section-sub { color: #64748b; font-weight: 600; margin-bottom: 32px; }
+  .divider {
+    width: 60px; height: 5px;
+    background: linear-gradient(90deg, var(--blue-bright), var(--accent));
+    border-radius: 999px; margin: 8px 0 28px;
+  }
+
+  /* ── DEAL BANNER ── */
+  .deal-banner {
+    background: linear-gradient(100deg, var(--blue-dark), var(--blue-mid));
+    border-radius: 24px; padding: 30px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 40px;
+    box-shadow: var(--shadow); overflow: hidden; position: relative;
+  }
+  .deal-banner::after {
+    content: '🎉'; font-size: 8rem; position: absolute; right: 20px; top: -10px;
+    opacity: 0.12;
+  }
+  .deal-banner-text h2 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem;
+    color: var(--accent); letter-spacing: 2px;
+  }
+  .deal-banner-text p { color: var(--blue-pale); font-weight: 700; font-size: 1.05rem; }
+  .countdown {
+    display: flex; gap: 12px;
+  }
+  .count-box {
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+    border-radius: 12px; padding: 12px 18px; text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .count-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+    color: var(--white); display: block; min-width: 40px;
+  }
+  .count-label { font-size: 0.72rem; font-weight: 700; color: var(--blue-light); text-transform: uppercase; }
+
+  /* ── PRODUCTS GRID ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .product-card {
+    background: var(--white); border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(10,31,92,0.10);
+    overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(10,31,92,0.18); }
+  .card-img {
+    background: var(--blue-pale);
+    height: 140px; display: flex; align-items: center;
+    justify-content: center; font-size: 4rem;
+    position: relative;
+  }
+  .badge {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--red); color: white;
+    font-weight: 900; font-size: 0.78rem; padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .badge.deal { background: var(--accent); color: var(--blue-dark); }
+  .badge.new { background: var(--green); }
+  .card-body { padding: 16px; }
+  .card-name {
+    font-weight: 800; font-size: 1.05rem; color: var(--blue-dark);
+    margin-bottom: 4px;
+  }
+  .card-category { font-size: 0.78rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .price-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .mrp-label { font-size: 0.78rem; color: #94a3b8; font-weight: 700; }
+  .mrp-price { text-decoration: line-through; color: #94a3b8; font-weight: 700; font-size: 0.95rem; }
+  .sale-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--blue-bright); }
+  .save-tag {
+    background: #fef3c7; color: #92400e; font-weight: 800;
+    font-size: 0.72rem; padding: 2px 8px; border-radius: 999px;
+  }
+  .card-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-edit {
+    flex: 1; background: var(--blue-pale); color: var(--blue-bright);
+    border: none; border-radius: 10px; padding: 8px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer;
+    font-size: 0.85rem; transition: background 0.15s;
+  }
+  .btn-edit:hover { background: #bfdbfe; }
+  .btn-add {
+    flex: 1; background: var(--blue-bright); color: white;
+    border: none; border-radius: 10px; padding: 8px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer;
+    font-size: 0.85rem; transition: background 0.15s;
+  }
+  .btn-add:hover { background: var(--blue-mid); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,31,92,0.55); backdrop-filter: blur(6px);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 24px;
+    padding: 36px; width: 90%; max-width: 480px;
+    box-shadow: 0 24px 80px rgba(10,31,92,0.35);
+    animation: modalIn 0.2s ease;
+  }
+  @keyframes modalIn {
+    from { transform: scale(0.92) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .modal h2 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
+    color: var(--blue-dark); margin-bottom: 20px; letter-spacing: 1px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-weight: 800; color: var(--blue-dark); margin-bottom: 6px; font-size: 0.9rem; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 11px 14px; border: 2px solid #e2e8f0;
+    border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 1rem;
+    color: var(--blue-dark); transition: border-color 0.15s;
+    background: var(--white-off);
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none; border-color: var(--blue-bright);
+    background: var(--white);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+  .btn-save {
+    flex: 1; background: var(--blue-bright); color: white;
+    border: none; border-radius: 12px; padding: 13px;
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .btn-save:hover { background: var(--blue-mid); }
+  .btn-cancel {
+    flex: 1; background: #f1f5f9; color: #64748b;
+    border: none; border-radius: 12px; padding: 13px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+    cursor: pointer;
+  }
+  .btn-cancel:hover { background: #e2e8f0; }
+
+  /* ── DEALS SECTION ── */
+  .deals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .deal-card {
+    border-radius: 20px; overflow: hidden;
+    box-shadow: var(--shadow); position: relative;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    color: white; padding: 28px;
+    transition: transform 0.2s;
+  }
+  .deal-card:hover { transform: translateY(-4px); }
+  .deal-card::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+  .deal-emoji { font-size: 3rem; margin-bottom: 12px; }
+  .deal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; }
+  .deal-desc { font-weight: 600; opacity: 0.85; font-size: 0.95rem; margin: 6px 0 16px; }
+  .deal-tag {
+    display: inline-block; background: var(--accent); color: var(--blue-dark);
+    font-weight: 900; font-size: 0.85rem; padding: 5px 14px; border-radius: 999px;
+  }
+  .deal-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .btn-deal-edit {
+    background: rgba(255,255,255,0.15); color: white; border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 10px; padding: 8px 16px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; font-size: 0.85rem;
+  }
+  .btn-deal-edit:hover { background: rgba(255,255,255,0.25); }
+  .btn-deal-del {
+    background: rgba(239,68,68,0.25); color: #fca5a5; border: 1.5px solid rgba(239,68,68,0.3);
+    border-radius: 10px; padding: 8px 16px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; font-size: 0.85rem;
+  }
+
+  /* ── ADD PRODUCT FAB ── */
+  .fab {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-mid));
+    color: white; font-size: 2rem; border: none; cursor: pointer;
+    box-shadow: 0 8px 28px rgba(37,99,235,0.5);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    z-index: 150;
+  }
+  .fab:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 12px 36px rgba(37,99,235,0.6); }
+
+  /* ── DEAL MODAL ── */
+  #dealModal .modal { background: var(--blue-dark); }
+  #dealModal .modal h2 { color: var(--accent); }
+  #dealModal .form-group label { color: var(--blue-pale); }
+  #dealModal .form-group input, #dealModal .form-group select {
+    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+  #dealModal .form-group input:focus { border-color: var(--blue-light); background: rgba(255,255,255,0.12); }
+  #dealModal .btn-cancel { background: rgba(255,255,255,0.1); color: var(--blue-pale); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 110px; right: 30px;
+    background: var(--blue-dark); color: white;
+    padding: 14px 22px; border-radius: 14px; font-weight: 700;
+    box-shadow: var(--shadow); transform: translateY(20px); opacity: 0;
+    transition: all 0.3s; z-index: 300; pointer-events: none;
+    border-left: 4px solid var(--accent);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blue-dark); color: var(--blue-pale);
+    text-align: center; padding: 32px 2rem; margin-top: 60px;
+  }
+  footer .f-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+    color: white; letter-spacing: 2px;
+  }
+  footer .f-logo span { color: var(--accent); }
+  footer p { font-size: 0.9rem; margin-top: 8px; opacity: 0.7; }
+
+  /* ── SEARCH ── */
+  .search-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border-radius: 14px; padding: 10px 18px;
+    box-shadow: 0 2px 12px rgba(10,31,92,0.10);
+    margin-bottom: 28px; max-width: 400px;
+    border: 2px solid var(--blue-pale);
+  }
+  .search-bar input {
+    border: none; outline: none; font-family: 'Nunito', sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--blue-dark); flex: 1;
+    background: transparent;
+  }
+  .search-bar span { font-size: 1.2rem; color: var(--blue-bright); }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 0; }
+    nav { gap: 0.8rem; }
+    .stats-bar { padding: 20px; }
+    .deal-banner { padding: 24px 20px; }
+    .countdown { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">🛒</span>
+      Tarun<span>Mart</span>
+    </div>
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#deals">Deals</a>
+      <a href="#" onclick="openDealModal()">+ Deal</a>
+      <span class="deals-badge">🔥 HOT DEALS</span>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Tarun <span>Mart</span><br>Crazy Deals!</h1>
+    <p>🛍️ Change MRP. Create Deals. Sell More. Every Day!</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openAddProduct()">➕ Add Product</button>
+      <button class="btn-secondary" onclick="openDealModal()">🎯 Create Deal</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num" id="totalProducts">8</span>
+    <span class="stat-label">Products</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num" id="totalDeals">4</span>
+    <span class="stat-label">Active Deals</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num" id="avgDiscount">22%</span>
+    <span class="stat-label">Avg Discount</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">24/7</span>
+    <span class="stat-label">Open Store</span>
+  </div>
+</div>
+
+<!-- PRODUCTS SECTION -->
+<div class="section" id="products">
+  <div class="section-title">Our <span>Products</span></div>
+  <div class="divider"></div>
+  <p class="section-sub">Edit MRP & Sale Price for any product instantly 👇</p>
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</div>
+
+<!-- DEALS SECTION -->
+<div class="section" id="deals">
+  <div class="deal-banner">
+    <div class="deal-banner-text">
+      <h2>⚡ CRAZY DEALS TODAY!</h2>
+      <p>Limited time offers — grab them before they're gone!</p>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="count-box"><span class="count-num" id="ch">00</span><span class="count-label">Hrs</span></div>
+      <div class="count-box"><span class="count-num" id="cm">00</span><span class="count-label">Min</span></div>
+      <div class="count-box"><span class="count-num" id="cs">00</span><span class="count-label">Sec</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">🎯 <span>Active</span> Deals</div>
+  <div class="divider"></div>
+  <p class="section-sub">Create, edit or delete your crazy deals here 🔥</p>
+  <div class="deals-grid" id="dealsGrid"></div>
+</div>
+
+<!-- FAB -->
+<button class="fab" onclick="openAddProduct()" title="Add Product">➕</button>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <h2 id="modalTitle">✏️ EDIT PRODUCT</h2>
+    <div class="form-group">
+      <label>Product Name</label>
+      <input type="text" id="pName" placeholder="e.g. Basmati Rice 1kg">
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="pCategory">
+        <option>Grains & Rice</option>
+        <option>Vegetables</option>
+        <option>Fruits</option>
+        <option>Dairy</option>
+        <option>Snacks</option>
+        <option>Beverages</option>
+        <option>Spices</option>
+        <option>Cleaning</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>MRP (₹)</label>
+        <input type="number" id="pMrp" placeholder="100" min="0">
+      </div>
+      <div class="form-group">
+        <label>Sale Price (₹)</label>
+        <input type="number" id="pSale" placeholder="80" min="0">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Emoji / Icon</label>
+        <input type="text" id="pEmoji" placeholder="🌾" maxlength="4">
+      </div>
+      <div class="form-group">
+        <label>Badge</label>
+        <select id="pBadge">
+          <option value="">None</option>
+          <option value="deal">🔥 DEAL</option>
+          <option value="hot">HOT</option>
+          <option value="new">NEW</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveProduct()">💾 Save Product</button>
+      <button class="btn-cancel" onclick="closeModal('productModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- DEAL MODAL -->
+<div class="modal-overlay" id="dealModal">
+  <div class="modal">
+    <h2>🎯 CREATE CRAZY DEAL</h2>
+    <div class="form-group">
+      <label>Deal Title</label>
+      <input type="text" id="dTitle" placeholder="e.g. Weekend Bonanza!">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" id="dDesc" placeholder="e.g. Buy 2 Get 1 Free on all veggies">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Deal Tag</label>
+        <input type="text" id="dTag" placeholder="e.g. 30% OFF">
+      </div>
+      <div class="form-group">
+        <label>Emoji</label>
+        <input type="text" id="dEmoji" placeholder="🎉" maxlength="4">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveDeal()">🚀 Launch Deal!</button>
+      <button class="btn-cancel" onclick="closeModal('dealModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">🛒 Tarun<span>Mart</span></div>
+  <p>Your neighbourhood grocery — best prices, crazy deals, always fresh!</p>
+  <p style="margin-top:12px; font-size:0.8rem;">© 2025 TarunMart. Made with 💙</p>
+</footer>
+
+<script>
+  // ── DATA ──
+  let products = [
+    { id:1, name:"Basmati Rice 1kg", category:"Grains & Rice", mrp:120, sale:89, emoji:"🌾", badge:"deal" },
+    { id:2, name:"Fresh Tomatoes", category:"Vegetables", mrp:40, sale:28, emoji:"🍅", badge:"hot" },
+    { id:3, name:"Whole Milk 1L", category:"Dairy", mrp:65, sale:60, emoji:"🥛", badge:"" },
+    { id:4, name:"Aloo (Potato) 1kg", category:"Vegetables", mrp:35, sale:22, emoji:"🥔", badge:"deal" },
+    { id:5, name:"Lays Masala Chips", category:"Snacks", mrp:20, sale:20, emoji:"🥨", badge:"new" },
+    { id:6, name:"Mango Frooti 200ml", category:"Beverages", mrp:20, sale:18, emoji:"🥭", badge:"" },
+    { id:7, name:"Turmeric Powder 100g", category:"Spices", mrp:55, sale:45, emoji:"🌿", badge:"" },
+    { id:8, name:"Surf Excel 500g", category:"Cleaning", mrp:115, sale:99, emoji:"🧼", badge:"deal" },
+  ];
+  let deals = [
+    { id:1, title:"Weekend Bonanza!", desc:"Flat 25% off on all vegetables this Saturday & Sunday", tag:"25% OFF", emoji:"🥦" },
+    { id:2, title:"Buy 2 Get 1 Free", desc:"On all rice & grains — limited stock available!", tag:"B2G1", emoji:"🌾" },
+    { id:3, title:"Dairy Delight", desc:"Fresh milk and paneer combo at unbeatable prices", tag:"COMBO", emoji:"🥛" },
+    { id:4, title:"Snack Attack!", desc:"All chips and biscuits at half price after 6PM", tag:"50% OFF", emoji:"🍫" },
+  ];
+  let editingProductId = null;
+  let editingDealId = null;
+  let nextPId = 9; let nextDId = 5;
+
+  // ── RENDER PRODUCTS ──
+  function renderProducts(list) {
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = list.map(p => {
+      const disc = p.mrp > p.sale ? Math.round((p.mrp - p.sale)/p.mrp*100) : 0;
+      const badgeMap = { deal:'🔥 DEAL deal', hot:'🔥 HOT', new:'✨ NEW new' };
+      const badgeHTML = p.badge && badgeMap[p.badge]
+        ? `<div class="badge ${p.badge === 'new' ? 'new' : p.badge === 'deal' ? 'deal' : ''}">${badgeMap[p.badge] || p.badge}</div>` : '';
+      return `
+        <div class="product-card" id="pc${p.id}">
+          <div class="card-img">
+            ${badgeHTML}
+            ${p.emoji || '📦'}
+          </div>
+          <div class="card-body">
+            <div class="card-category">${p.category}</div>
+            <div class="card-name">${p.name}</div>
+            <div class="price-row">
+              <span class="mrp-label">MRP</span>
+              <span class="mrp-price">₹${p.mrp}</span>
+              <span class="sale-price">₹${p.sale}</span>
+              ${disc > 0 ? `<span class="save-tag">Save ${disc}%</span>` : ''}
+            </div>
+            <div class="card-actions">
+              <button class="btn-edit" onclick="openEditProduct(${p.id})">✏️ Edit</button>
+              <button class="btn-add" onclick="deleteProduct(${p.id})">🗑️ Remove</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    document.getElementById('totalProducts').textContent = products.length;
+    updateAvgDiscount();
+  }
+
+  function filterProducts() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    renderProducts(products.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)));
+  }
+
+  // ── RENDER DEALS ──
+  function renderDeals() {
+    document.getElementById('dealsGrid').innerHTML = deals.map(d => `
+      <div class="deal-card">
+        <div class="deal-emoji">${d.emoji}</div>
+        <div class="deal-title">${d.title}</div>
+        <div class="deal-desc">${d.desc}</div>
+        <span class="deal-tag">${d.tag}</span>
+        <div class="deal-actions">
+          <button class="btn-deal-edit" onclick="openEditDeal(${d.id})">✏️ Edit</button>
+          <button class="btn-deal-del" onclick="deleteDeal(${d.id})">🗑️ Delete</button>
+        </div>
+      </div>`).join('');
+    document.getElementById('totalDeals').textContent = deals.length;
+  }
+
+  // ── PRODUCT MODAL ──
+  function openAddProduct() {
+    editingProductId = null;
+    document.getElementById('modalTitle').textContent = '➕ ADD PRODUCT';
+    document.getElementById('pName').value = '';
+    document.getElementById('pMrp').value = '';
+    document.getElementById('pSale').value = '';
+    document.getElementById('pEmoji').value = '';
+    document.getElementById('pBadge').value = '';
+    document.getElementById('pCategory').value = 'Grains & Rice';
+    document.getElementById('productModal').classList.add('open');
+  }
+  function openEditProduct(id) {
+    editingProductId = id;
+    const p = products.find(x => x.id === id);
+    document.getElementById('modalTitle').textContent = '✏️ EDIT PRODUCT';
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pMrp').value = p.mrp;
+    document.getElementById('pSale').value = p.sale;
+    document.getElementById('pEmoji').value = p.emoji || '';
+    document.getElementById('pBadge').value = p.badge || '';
+    document.getElementById('pCategory').value = p.category;
+    document.getElementById('productModal').classList.add('open');
+  }
+  function saveProduct() {
+    const name = document.getElementById('pName').value.trim();
+    const mrp = parseFloat(document.getElementById('pMrp').value);
+    const sale = parseFloat(document.getElementById('pSale').value);
+    if (!name || isNaN(mrp) || isNaN(sale)) { showToast('⚠️ Please fill all fields!'); return; }
+    if (sale > mrp) { showToast('⚠️ Sale price cannot exceed MRP!'); return; }
+    const data = {
+      name, mrp, sale,
+      category: document.getElementById('pCategory').value,
+      emoji: document.getElementById('pEmoji').value || '📦',
+      badge: document.getElementById('pBadge').value,
+    };
+    if (editingProductId) {
+      const i = products.findIndex(x => x.id === editingProductId);
+      products[i] = { ...products[i], ...data };
+      showToast('✅ Product updated!');
+    } else {
+      products.push({ id: nextPId++, ...data });
+      showToast('✅ Product added!');
+    }
+    closeModal('productModal');
+    filterProducts();
+  }
+  function deleteProduct(id) {
+    products = products.filter(p => p.id !== id);
+    filterProducts();
+    showToast('🗑️ Product removed!');
+  }
+
+  // ── DEAL MODAL ──
+  function openDealModal() {
+    editingDealId = null;
+    ['dTitle','dDesc','dTag','dEmoji'].forEach(f => document.getElementById(f).value = '');
+    document.getElementById('dealModal').classList.add('open');
+  }
+  function openEditDeal(id) {
+    editingDealId = id;
+    const d = deals.find(x => x.id === id);
+    document.getElementById('dTitle').value = d.title;
+    document.getElementById('dDesc').value = d.desc;
+    document.getElementById('dTag').value = d.tag;
+    document.getElementById('dEmoji').value = d.emoji;
+    document.getElementById('dealModal').classList.add('open');
+  }
+  function saveDeal() {
+    const title = document.getElementById('dTitle').value.trim();
+    const desc = document.getElementById('dDesc').value.trim();
+    const tag = document.getElementById('dTag').value.trim();
+    const emoji = document.getElementById('dEmoji').value.trim() || '🎉';
+    if (!title || !desc || !tag) { showToast('⚠️ Fill all deal fields!'); return; }
+    if (editingDealId) {
+      const i = deals.findIndex(x => x.id === editingDealId);
+      deals[i] = { ...deals[i], title, desc, tag, emoji };
+      showToast('✅ Deal updated!');
+    } else {
+      deals.push({ id: nextDId++, title, desc, tag, emoji });
+      showToast('🚀 New deal launched!');
+    }
+    closeModal('dealModal');
+    renderDeals();
+  }
+  function deleteDeal(id) {
+    deals = deals.filter(d => d.id !== id);
+    renderDeals();
+    showToast('🗑️ Deal removed!');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('open');
+  }));
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── STATS ──
+  function updateAvgDiscount() {
+    const withDisc = products.filter(p => p.mrp > p.sale);
+    const avg = withDisc.length
+      ? Math.round(withDisc.reduce((s,p)=>s+(p.mrp-p.sale)/p.mrp*100,0)/withDisc.length)
+      : 0;
+    document.getElementById('avgDiscount').textContent = avg + '%';
+  }
+
+  // ── COUNTDOWN ──
+  function updateCountdown() {
+    const now = new Date();
+    const end = new Date(); end.setHours(23,59,59,0);
+    const diff = Math.max(0, end - now);
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    document.getElementById('ch').textContent = String(h).padStart(2,'0');
+    document.getElementById('cm').textContent = String(m).padStart(2,'0');
+    document.getElementById('cs').textContent = String(s).padStart(2,'0');
+  }
+  setInterval(updateCountdown, 1000); updateCountdown();
+
+  // ── INIT ──
+  renderProducts(products);
+  renderDeals();
+</script>
+</body>
+</html>
